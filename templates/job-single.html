@@ -1,0 +1,316 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>AI Interviewer By Tech Mahindra</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    
+    <link rel="stylesheet" href="static/css/custom-bs.css">
+    <link rel="stylesheet" href="static/css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="static/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="static/fonts/icomoon/style.css">
+    <link rel="stylesheet" href="static/fonts/line-icons/style.css">
+    <link rel="stylesheet" href="static/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="static/css/animate.min.css">
+
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="static/css/style.css">  
+    <style>
+      #matching-score {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+    #matching-score p{
+      font-size: large;
+      color: #89ba16;
+    }
+
+    #techM_logo {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin-top: 0px;
+        margin-right: 60px;
+      }
+      
+      #techM_logo img {
+    width: 300px; /* Adjust as needed */
+    height: auto; /* This will maintain the aspect ratio */
+
+}
+
+.site-logo {
+  margin-top: 80px;
+  font-weight: 900;
+  font-size:xx-large;
+}
+#popupContainer {
+    width:fit-content; /* Set the width to 50% */
+    height:fit-content;
+    margin: auto; /* Center the div on the page */
+    top: 50%; /* Position the popup at the vertical center */
+    left: 50%; /* Position the popup at the horizontal center */
+    transform: translate(-50%, -50%); /* Center the popup */
+    background:transparent;
+  }
+.popup-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+#home-section {
+  height: 200px;
+}
+
+.popup-content p {
+  font-weight: bolder;
+  font-size: large;
+}
+    </style>
+    
+    
+  </head>
+  <body id="top">
+
+    <div id="popupContainer" class="popup">
+      <!-- <span class="close" id="closeButton">&times;</span> -->
+      <div class="popup-content">
+        
+        <p>The interview has been scheduled and an invitation has been sent to you and the interviewee. The AI interviewer will autonomously conduct the interview at the agreed-upon time and subsequently provide you with the evaluation score and transcript.</p>
+        <button id="goHomeButton">Go to Home</button>
+      </div>
+    </div>
+
+  <div id="overlayer"></div>
+  <div class="loader">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+    
+
+<div class="site-wrap">
+
+    <div class="site-mobile-menu site-navbar-target">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <span class="icon-close2 js-menu-toggle"></span>
+        </div>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+    </div> <!-- .site-mobile-menu -->
+    
+
+    <!-- NAVBAR -->
+    <header class="site-navbar mt-3">
+      <div class="container-fluid">
+        <div class="row align-items-center">
+          <div class="site-logo col-6"><a href="/schedule_interview">AI Interviewer</a></div> 
+          <!-- Use url_for -->
+          <div id="techM_logo"><img src="{{ url_for('static', filename='images/Tech-M.png') }}"></div>
+          
+
+
+        </div>
+      </div>
+    </header>
+
+    <!-- HOME -->
+    <section class="section-hero overlay inner-page bg-image" style="background-image: url('static/images/hero_1.jpg');" id="home-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-7">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+    
+    <section class="site-section">
+      <div class="container">
+        <div class="row align-items-center mb-5">
+          <div class="col-lg-8 mb-4 mb-lg-0">
+            <div class="d-flex align-items-center">
+              <!-- <div class="border p-2 d-inline-block mr-3 rounded">
+                <img src="static/images/download.png" alt="Image">
+              </div> -->
+              <div>
+                <h2>Candidate Details</h2>
+                <div>
+                  <!-- <span class="ml-0 mr-2 mb-2"><span class="icon-briefcase mr-2"></span>Tech Mahindra</span>
+                  <span class="m-2"><span class="icon-room mr-2"></span>Pune</span>
+                  <span class="m-2"><span class="icon-clock-o mr-2"></span><span class="text-primary">Full Time</span></span> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="row">
+              <div class="col-6">
+                <!-- <a href="/schedule_interview" class="btn btn-block btn-light btn-md" style="font-size: 12px;"></span>Discard Application</a> -->
+              </div>
+              <div class="col-6">
+                <button id="scheduleButton" class="btn btn-block btn-primary btn-md" style="font-size: 12px;">Schedule Interview</button>
+            </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="mb-5">
+              <figure class="mb-5"><img src= {{ photo_path }} alt="Image" class="img-fluid rounded"></figure>
+              <h3 class="h5 d-flex align-items-center mb-4 text-primary"><span class="icon-align-left mr-3"></span>Candidate Name</h3>
+              <p>{{ candidate_name }}</p>
+              
+            </div>
+            <div class="mb-5">
+              <h3 class="h5 d-flex align-items-center mb-4 text-primary"><span class="icon-rocket mr-3"></span>Work Experience</h3>
+              <ul class="list-unstyled m-0 p-0">
+                {%for item in work_experience%}
+                  <li class="d-flex align-items-start mb-2"><span class="icon-check_circle mr-2 text-muted"></span><span>{{ item }}</span></li>
+                {%endfor%}
+                
+              </ul>
+            </div>
+
+            <div class="mb-5">
+              <h3 class="h5 d-flex align-items-center mb-4 text-primary"><span class="icon-book mr-3"></span>Projects</h3>
+              <ul class="list-unstyled m-0 p-0">
+                {%for item in projects%}
+                  <li class="d-flex align-items-start mb-2"><span class="icon-check_circle mr-2 text-muted"></span><span>{{ item }}</span></li>
+                {%endfor%}
+                
+              </ul>
+            </div>
+
+            <div class="mb-5">
+              <h3 class="h5 d-flex align-items-center mb-4 text-primary"><span class="icon-turned_in mr-3"></span>Skills</h3>
+              <ul class="list-unstyled m-0 p-0">
+                {%for item in skills%}
+                  <li class="d-flex align-items-start mb-2"><span class="icon-check_circle mr-2 text-muted"></span><span>{{ item }}</span></li>
+                {%endfor%}
+                
+            </div>
+
+            <div class="row mb-5">
+              <div class="col-6">
+                <!-- <a href="/schedule_interview" class="btn btn-block btn-light btn-md"></span>Discard Application</a>
+              </div>
+              <div class="col-6"> -->
+                <a id="scheduleButton_2" href="#" class="btn btn-block btn-primary btn-md">Schedule Interview</a>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-lg-4">
+            <div class="bg-light p-3 border rounded mb-4">
+              <h3 class="text-primary  mt-3 h5 pl-3 mb-3 ">Job Description</h3>
+              <ul class="list-unstyled pl-3 mb-0">
+                <li class="mb-2"><strong class="text-black">Job Role:</strong> {{ job_role }}</li>
+                <li class="mb-2"><strong class="text-black">Vital Topics:</strong> {{ vital_topics }}</li>
+                <li class="mb-2"><strong class="text-black">Good To Know Topics:</strong> {{ good_to_know_topics}}</li>
+ 
+            </div>
+            
+            <div id="matching-score">
+              <p>Resume and JD Matching Score</p>
+              <img src="{{ url_for('static', filename='images/scoreUI_3_1.webp') }}"> 
+            </div>
+          </div>
+      </div>
+    </section>
+
+   
+
+    <!-- SCRIPTS -->
+    <script src="static/js/jquery.min.js"></script>
+    <script src="static/js/bootstrap.bundle.min.js"></script>
+    <script src="static/js/isotope.pkgd.min.js"></script>
+    <script src="static/js/stickyfill.min.js"></script>
+    <script src="static/js/jquery.fancybox.min.js"></script>
+    <script src="static/js/jquery.easing.1.3.js"></script>
+    
+    <script src="static/js/jquery.waypoints.min.js"></script>
+    <script src="static/js/jquery.animateNumber.min.js"></script>
+    <script src="static/js/owl.carousel.min.js"></script>
+    
+    <script src="static/js/bootstrap-select.min.js"></script>
+    
+    <script src="static/js/custom.js"></script>
+
+    <script>
+      document.getElementById("scheduleButton").addEventListener("click", function() {
+        document.getElementById("popupContainer").style.display = "block";
+
+        // send a post request to the server at endpoint /send_email
+        
+        fetch('/send_email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            // Add any other headers as needed
+          }
+          })
+          .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json(); // Parse response JSON if needed
+          })
+          .then(data => {
+          // Handle response data if needed
+          console.log('Response:', data);
+          })
+          .catch(error => {
+          // Handle errors
+          console.error('There was a problem with the request:', error);
+          });
+        });
+
+        document.getElementById("scheduleButton_2").addEventListener("click", function() {
+        document.getElementById("popupContainer").style.display = "block";
+
+        // send a post request to the server at endpoint /send_email
+        
+        fetch('/send_email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            // Add any other headers as needed
+          }
+          })
+          .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json(); // Parse response JSON if needed
+          })
+          .then(data => {
+          // Handle response data if needed
+          console.log('Response:', data);
+          })
+          .catch(error => {
+          // Handle errors
+          console.error('There was a problem with the request:', error);
+          });
+        });
+
+      document.getElementById("goHomeButton").addEventListener("click", function() {
+        window.location.href = "/schedule_interview"; // Change "home.html" to your actual home page URL
+      });
+          
+
+    </script>
+
+  </body>
+</html>

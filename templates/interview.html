@@ -1,0 +1,58 @@
+<!-- In this web page the Interview of the candidate will be conducted -->
+<!-- It will have two section -->
+<!-- In the first section details about the candidate and interview will be displayed -->
+<!-- The information in the first section will be Candidate Name, Job Role, Unique_ID of the Interview -->
+<!-- In the second section there will be the video element for the webcam, a Image/Gif for AI Interviewer -->
+<!-- Start interview button and Stop interview button which will overlap and only one will be displayed at a time -->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AI Interview</title>
+        <script
+            defer
+            src="{{ url_for('static', filename='face-api.min.js') }}"
+        ></script>
+
+        <script
+            defer
+            src="{{ url_for('static', filename='secrets.js') }}"
+            ></script>
+
+        <script
+            defer
+            src="{{ url_for('static', filename='interview.js') }}"
+            ></script>
+    <script src="https://cdn.jsdelivr.net/npm/microsoft-cognitiveservices-speech-sdk/distrib/browser/microsoft.cognitiveservices.speech.sdk.bundle.js"></script>
+    
+</head>
+
+    <body>
+        <h1>Interview</h1>
+        <div>
+            <h2>Candidate Name: {{ candidate_name }}</h2>
+            <h2>Job Role: {{ job_role }}</h2>
+            <h2>Unique ID: {{ unique_id }}</h2>
+        </div>
+        <div>
+            <button id="start_interview" >Start Interview</button>
+            <p id="interview_status"></p>
+            <button id="stop_interview" style="display: none;">Stop Interview</button><br><br>
+            <div style="display: flex;">
+                <video id="webcam" autoplay muted style="margin-right: 20px; object-fit: cover;"></video>
+                <img id="ai_interviewer" src="{{ url_for('static', filename='default_image.png') }}" alt="AI Interviewer" style="display: none;">
+            </div>
+            
+        </div>
+
+        <script type="text/javascript">
+            var imageSrc = "{{ url_for('static', filename='scheduled_interviews/' + unique_id + '/' + photo_filename) }}";
+            var speaking_gif = "{{ url_for('static', filename='AI_speaking.gif') }}";
+            var not_speaking_gif = "{{ url_for('static', filename='default_image.png') }}";
+
+
+        </script>
+    </body>
+</html>

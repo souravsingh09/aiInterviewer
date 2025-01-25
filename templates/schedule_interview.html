@@ -1,0 +1,38 @@
+<!-- In this web page the internal team will create the interview link -->
+<!-- We will provide the capability to upload Interviewee resume, Job Description and Candidate Photo -->
+<!-- Also the email to which the interviewee transccript and AI evaluated result should be sent to needs to be entered -->
+<!-- There should be button "Create Interview Link" to generate the interview link for the candidate-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Schedule Interview</title>
+    </head>
+    <body>
+        <h1>Schedule Interview</h1>
+        <form action="/schedule_interview" method="post" enctype="multipart/form-data">
+            <label for="resume">Resume:</label>
+            <input type="file" id="resume" name="resume" required accept=".pdf,.doc,.docx,.txt"><br><br>
+            <label for="job_description">Job Description:</label>
+            <input type="file" id="job_description" name="job_description" required accept=".pdf,.doc,.docx,.txt"><br><br>
+            <label for="photo">Photo:</label>
+            <input type="file" id="photo" name="photo" required accept=".jpg,.jpeg,.png"><br><br>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br><br>
+            <input type="submit" value="Create Interview Link">
+
+            <div id="Interview_Link" style="display: none;">
+                <h2>Interview Link:</h2>
+                <p >{{ url }}</p>
+            </div>
+        </form>
+        <script>
+            // JavaScript code to display the Interview_Link div when the URL is generated
+            {% if url %}
+                document.getElementById("Interview_Link").style.display = "block";
+            {% endif %}
+        </script>
+    </body>
+</html>

@@ -1,0 +1,203 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>JobBoard &mdash; Website Template by Colorlib</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    
+    <link rel="stylesheet" href="../static/css/custom-bs.css">
+    <link rel="stylesheet" href="../static/css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="../static/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="../static/fonts/icomoon/style.css">
+    <link rel="stylesheet" href="../static/fonts/line-icons/style.css">
+    <link rel="stylesheet" href="../static/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../static/css/animate.min.css">
+
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="../static/css/style.css">    
+
+    <style>
+      #our_edit {
+          display: flex;
+          justify-content:start;
+          flex-direction: column;
+          align-items:center;
+          height: 100vh;
+          margin: 20px;
+          gap: 20px;
+      }
+      #candidate_info {
+        width: max-content;
+          border: 1px solid #ccc;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          padding: 20px;
+          display: flex;
+          flex-direction: row; /* Change to row for side by side */
+          align-items: center;
+          gap: 30px;
+      }
+      #video {
+          width: 80%;
+          height: 60%; /* Adjust height automatically based on content */
+          border: 1px solid #ccc;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          padding: 20px;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          align-self: center;
+          align-content: center;
+          gap: 20px;
+          }
+
+          #video video {
+          max-width: 50%; /* Adjust width of the video element */
+          height: auto; /* Adjust height automatically based on aspect ratio */
+          object-fit: cover;
+          }
+
+          #video img {
+          max-width: 50%;
+
+          height: auto; /* Adjust height automatically based on aspect ratio */
+
+          }
+
+      h2 {
+          margin: 0;
+      }
+
+      button{
+          color: white;
+          background-color: #89ba16;
+          width: 150px;
+          height: 50px;
+          padding: 0rem 0rem 1rem 0rem;
+          font-size: 1rem;
+          line-height: 1.5;
+          border-radius: 0.3rem;
+          text-align: center;
+          vertical-align: middle;
+          padding-top: 0.7em;
+      }
+
+  @media (max-height: 1000px) {
+  #our_edit {
+    flex-direction: column;
+  }
+  #video {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+  </style>
+
+    <script
+            defer
+            src="{{ url_for('static', filename='face-api.min.js') }}"
+        ></script>
+
+        <script
+            defer
+            src="{{ url_for('static', filename='secrets.js') }}"
+            ></script>
+
+        <script
+            defer
+            src="{{ url_for('static', filename='interview.js') }}"
+            ></script>
+    <script src="https://cdn.jsdelivr.net/npm/microsoft-cognitiveservices-speech-sdk/distrib/browser/microsoft.cognitiveservices.speech.sdk.bundle.js"></script>
+  </head>
+<body id="top">
+
+
+  <div class="site-wrap">
+
+    <div class="site-mobile-menu site-navbar-target">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <span class="icon-close2 js-menu-toggle"></span>
+        </div>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+    </div> <!-- .site-mobile-menu -->
+    
+
+    <!-- NAVBAR -->
+    <header class="site-navbar mt-3">
+      <div class="container-fluid">
+        <div class="row align-items-center">
+          <div class="site-logo col-6"><a href="index.html">AI Interviewer</a></div>
+
+
+        </div>
+      </div>
+    </header>
+
+    <!-- HOME -->
+    <section class="section-hero overlay inner-page bg-image" style="background-image: url('../static/images/hero_1.jpg');" id="home-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-7">
+          </div>
+        </div>
+      </div>
+    </section>
+    <div id="our_edit">
+      <div id="candidate_info">
+          <h2>Candidate Name: {{ candidate_name }}</h2>
+          <h2>Job Role: {{ job_role }}</h2>
+          <h2>Unique ID: {{ unique_id }}</h2>
+      </div>
+
+      <div id="system_message">
+        <h2 id="sys_mes">System Message: Best of luck for your Interview. Please click below to start the interview</h2>
+      </div>
+
+      <div id="buttons">
+        <button id="start_interview" >Start Interview</button>
+        <button id="stop_interview" style="display: none;">Stop Interview</button>
+      </div>
+
+
+
+      <div id="video">
+        <video id="webcam" autoplay muted style="margin-right: 20px; object-fit: cover;"></video>
+        <img id="ai_interviewer" src="{{ url_for('static', filename='default_image.png') }}" alt="AI Interviewer" style="display: none;">
+      </div>        
+
+  </div>
+
+
+
+
+   
+  </div>
+    <!-- SCRIPTS -->
+    <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/js/bootstrap.bundle.min.js"></script>
+    <script src="../static/js/isotope.pkgd.min.js"></script>
+    <script src="../static/js/stickyfill.min.js"></script>
+    <script src="../static/js/jquery.fancybox.min.js"></script>
+    <script src="../static/js/jquery.easing.1.3.js"></script>
+    
+    <script src="../static/js/jquery.waypoints.min.js"></script>
+    <script src="../static/js/jquery.animateNumber.min.js"></script>
+    <script src="../static/js/owl.carousel.min.js"></script>
+    
+    <script src="../static/js/bootstrap-select.min.js"></script>
+    
+    <script src="../static/js/custom.js"></script>
+
+    <script type="text/javascript">
+      var imageSrc = "{{ url_for('static', filename='scheduled_interviews/' + unique_id + '/' + photo_filename) }}";
+      var speaking_gif = "{{ url_for('static', filename='AI_speaking.gif') }}";
+      var not_speaking_gif = "{{ url_for('static', filename='default_image.png') }}";
+
+
+  </script>
+
+</body>
+</html>
